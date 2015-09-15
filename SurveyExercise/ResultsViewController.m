@@ -6,13 +6,13 @@
 //  Copyright (c) 2015 Miguel Santiago Rodríguez. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "ResultsViewController.h"
 
-@interface ViewController ()
+@interface ResultsViewController ()
 
 @end
 
-@implementation ViewController
+@implementation ResultsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
