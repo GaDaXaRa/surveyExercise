@@ -7,6 +7,8 @@
 //
 
 #import "QuestionsViewController.h"
+#import "SurveyDatasource.h"
+#import "NotificationsKeys.h"
 
 static NSUInteger const padding = 16;
 
@@ -19,6 +21,8 @@ static NSUInteger const padding = 16;
 @property (strong, nonatomic) UILabel *question1Label;
 @property (strong, nonatomic) UILabel *question2Label;
 @property (strong, nonatomic) UILabel *question3Label;
+
+@property (strong, nonatomic) UIButton *nextButton;
 
 @property (strong, nonatomic) SurveyDatasource *datasource;
 
@@ -39,11 +43,31 @@ static NSUInteger const padding = 16;
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     [self buildQuestions];
+    [self addSwitchesTargetActions];
+    [self drawButtonIfNeeded];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self fetchQuestionData];
+}
+
+- (void)addSwitchesTargetActions {
+    [self.question1Switch addTarget:self action:@selector(didMarkAnswer:) forControlEvents:UIControlEventValueChanged];
+    [self.question2Switch addTarget:self action:@selector(didMarkAnswer:) forControlEvents:UIControlEventValueChanged];
+    [self.question3Switch addTarget:self action:@selector(didMarkAnswer:) forControlEvents:UIControlEventValueChanged];
+}
+
+- (void)didMarkAnswer:(UISwitch *)questionSwitch {
+    NSUInteger questionNumber = 0;
+    
+    if (questionSwitch == self.question2Switch) {
+        questionNumber = 1;
+    } else if (questionSwitch == self.question3Switch) {
+        questionNumber = 2;
+    }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:didAnswerNotification object:self userInfo:@{questionKey:@(questionNumber)}];
 }
 
 - (void)fetchQuestionData {
@@ -67,6 +91,29 @@ static NSUInteger const padding = 16;
     [self buildQuestion1];
     [self buildQuestion2];
     [self buildQuestion3];
+}
+
+- (void)drawButtonIfNeeded {
+    if ([self canShowNextController]) {
+        self.nextButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self.nextButton setTitle:@"Siguiente" forState:UIControlStateNormal];
+        self.nextButton.backgroundColor = [UIColor redColor];
+        self.nextButton.frame = CGRectMake(padding, 400, 200, 40);
+        [self.nextButton addTarget:self action:@selector(showNextQuestion) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:self.nextButton];
+    }
+}
+
+- (BOOL)canShowNextController {
+    NSUInteger questionNumber = [self.navigationController.viewControllers indexOfObject:self];
+    NSUInteger numberOfQuestions = [[self.datasource fetchSurvey][@"preguntas"] count];
+    
+    return questionNumber + 1 < numberOfQuestions;
+}
+
+- (void)showNextQuestion {
+    QuestionsViewController *newxtQuestion = [[QuestionsViewController alloc] initWithDataSource:self.datasource];
+    [self.navigationController pushViewController:newxtQuestion animated:YES];
 }
 
 - (void)buildQuestion1 {

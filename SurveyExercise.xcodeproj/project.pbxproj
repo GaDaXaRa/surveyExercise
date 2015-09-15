@@ -46,6 +46,7 @@
 		3F0644C91BA85163004170A3 /* SurveyDatasource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyDatasource.m; sourceTree = "<group>"; };
 		3F0644CC1BA85255004170A3 /* QuestionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionsViewController.h; sourceTree = "<group>"; };
 		3F0644CD1BA85255004170A3 /* QuestionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionsViewController.m; sourceTree = "<group>"; };
+		3F0644CF1BA87709004170A3 /* NotificationsKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationsKeys.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +134,7 @@
 				3F0644CD1BA85255004170A3 /* QuestionsViewController.m */,
 				3F0644A91BA85138004170A3 /* ResultsViewController.h */,
 				3F0644AA1BA85138004170A3 /* ResultsViewController.m */,
+				3F0644CF1BA87709004170A3 /* NotificationsKeys.h */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";

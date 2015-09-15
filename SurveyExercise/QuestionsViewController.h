@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SurveyDatasource.h"
+
+@class SurveyDatasource;
 
 @interface QuestionsViewController : UIViewController
 

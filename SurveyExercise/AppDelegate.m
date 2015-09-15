@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "QuestionsViewController.h"
 #import "SurveyDatasource.h"
+#import "ResultsViewController.h"
 
 @interface AppDelegate ()
 
@@ -22,8 +23,15 @@
     
     QuestionsViewController *questionsViewController = [[QuestionsViewController alloc] initWithDataSource:[SurveyDatasource new]];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:questionsViewController];
+    navigationController.tabBarItem.title = @"Preguntas";
     
-    self.window.rootViewController = navigationController;
+    ResultsViewController *resultsViewController = [[ResultsViewController alloc] init];
+    resultsViewController.tabBarItem.title = @"Respuestas";
+    
+    UITabBarController *tabBarController = [[UITabBarController alloc] init];
+    [tabBarController setViewControllers:@[navigationController, resultsViewController]];
+    
+    self.window.rootViewController = tabBarController;
     [self.window makeKeyAndVisible];
     return YES;
 }
