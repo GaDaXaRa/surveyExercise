@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "QuestionsViewController.h"
+#import "SurveyDatasource.h"
 
 @interface AppDelegate ()
 
@@ -19,7 +20,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
-    QuestionsViewController *questionsViewController = [[QuestionsViewController alloc] init];
+    QuestionsViewController *questionsViewController = [[QuestionsViewController alloc] initWithDataSource:[SurveyDatasource new]];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:questionsViewController];
     
     self.window.rootViewController = navigationController;

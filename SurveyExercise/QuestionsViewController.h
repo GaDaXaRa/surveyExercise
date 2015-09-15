@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SurveyDatasource.h"
 
 @interface QuestionsViewController : UIViewController
+
+- (instancetype)initWithDataSource:(SurveyDatasource *)datasource;
 
 @end

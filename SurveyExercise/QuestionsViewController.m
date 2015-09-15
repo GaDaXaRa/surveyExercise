@@ -20,14 +20,47 @@ static NSUInteger const padding = 16;
 @property (strong, nonatomic) UILabel *question2Label;
 @property (strong, nonatomic) UILabel *question3Label;
 
+@property (strong, nonatomic) SurveyDatasource *datasource;
+
 @end
 
 @implementation QuestionsViewController
+
+- (instancetype)initWithDataSource:(SurveyDatasource *)datasource {
+    self = [super init];
+    if (self) {
+        _datasource = datasource;
+    }
+    
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     [self buildQuestions];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self fetchQuestionData];
+}
+
+- (void)fetchQuestionData {
+    NSUInteger questionNumber = [self.navigationController.viewControllers indexOfObject:self];
+    
+    NSDictionary *questions = [self.datasource fetchSurvey];
+    NSArray *questionsArray = questions[@"preguntas"];
+    NSDictionary *currentQuestion = [questionsArray objectAtIndex:questionNumber];
+    [self drawQuestionsWithDictionary:currentQuestion];
+}
+
+- (void)drawQuestionsWithDictionary:(NSDictionary *)questionDictionary {
+    self.navigationItem.title = questionDictionary[@"pregunta"];
+    NSArray *answers = questionDictionary[@"respuestas"];
+    self.question1Label.text = answers[0];
+    self.question2Label.text = answers[1];
+    self.question3Label.text = answers[2];
 }
 
 - (void)buildQuestions {
